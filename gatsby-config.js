@@ -5,7 +5,7 @@ module.exports = {
     description: `Photos of what matters the most to you`,
     siteUrl: `https://lutu-photos-stage.netlify.com`,
     social: {
-      instagram: `lutu_photomoments`,
+      twitter: `lutu_photomoments`,
     },
     postPrefix : '/blog',
     pagePrefix: '',
