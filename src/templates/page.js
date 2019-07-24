@@ -11,6 +11,8 @@ const PageTemplate = (props) => {
   const post = props.data.wordpressPage;
   const siteTitle = props.data.site.siteMetadata.title;
 
+  console.log(post);
+
   return (
     <Layout location={props.location} title={siteTitle}>
       <SEO
@@ -24,6 +26,7 @@ const PageTemplate = (props) => {
           marginBottom: rhythm(1),
         }}
         />
+        <div dangerouslySetInnerHTML={{ __html: post.layout }} />
       <Bio />
     </Layout>
   )
@@ -47,6 +50,7 @@ export const pageQuery = graphql`
       #   source_url
       # }
       content
+      template
     }
   }
 `

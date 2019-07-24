@@ -11,33 +11,17 @@ const BlogIndex = (props) => {
     title,
     postPrefix,
   } = props.data.site.siteMetadata;
-  const posts = props.data.allWordpressPost.edges;
+  const page = props.data.wordpressPage;
 
   return (
     <Layout location={props.location} title={title}>
-      <SEO title="All posts" />
-      <Bio />
-      {posts.map(({ node }) => {
-        return (
-          <div key={node.slug}>
-            <h3
-              style={{
-                marginBottom: rhythm(1 / 4),
-              }}
-            >
-              <Link style={{ boxShadow: `none` }} to={`${postPrefix}/${node.slug}`}>
-                {node.title}
-              </Link>
-            </h3>
-            <small>{node.date}</small>
-            <p
-              dangerouslySetInnerHTML={{
-                __html: node.excerpt,
-              }}
-            />
-          </div>
-        )
-      })}
+      <SEO title="Homepage" />
+      <div
+        dangerouslySetInnerHTML={{
+          __html: page.content,
+        }}
+      />
+      {}
     </Layout>
   )
 }
@@ -52,29 +36,11 @@ export const pageQuery = graphql`
         postPrefix
       }
     }
-    allWordpressPost(
-       filter: {
-         fields: {
-           deploy: {eq: true}
-         }
-       }
-        limit: 100
-      ) {
-      edges {
-        node {
-          date(formatString: "MMMM DD, YYYY")
-          slug
-          title
-          excerpt
-          id
-          featured_media {
-            source_url
-          }
-          categories {
-            name
-          }
-        }
-      }
+    wordpressPage(path: {eq: "/"}) {
+      id
+      status
+      title
+      content
     }
   }
 `
